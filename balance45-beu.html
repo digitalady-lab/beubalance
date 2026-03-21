@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="theme-color" content="#B5838D" />
+<title>Balance 45 – Be U Beauty Budapest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  :root {
+    --accent: #B5838D;
+    --accent-light: rgba(181,131,141,0.12);
+    --accent-mid: rgba(181,131,141,0.3);
+    --gold: #C9A86C;
+    --bg: #FAF9F6;
+    --surface: #FFFFFF;
+    --text: #3E3232;
+    --text-muted: #9A8F8F;
+    --border: rgba(181,131,141,0.18);
+    --radius: 20px;
+    --shadow: 0 4px 24px rgba(181,131,141,0.1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overscroll-behavior: none;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(12px);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo svg { color: var(--accent); }
+  .logo-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent); font-style: italic; }
+  .logo-sub { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); }
+
+  /* TABS */
+  .tabs-wrap { overflow-x: auto; background: var(--surface); border-bottom: 1px solid var(--border); }
+  .tabs { display: flex; padding: 0 12px; gap: 4px; white-space: nowrap; }
+  .tab-btn {
+    padding: 10px 16px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-muted); border: none; background: none;
+    cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s;
+  }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn:hover { color: var(--accent); }
+
+  /* MAIN */
+  .main { max-width: 680px; margin: 0 auto; padding: 24px 16px 120px; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* INPUTS */
+  .input-group { margin-bottom: 14px; }
+  .input-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 6px; display: block; }
+  .input, .textarea, .select {
+    width: 100%; padding: 12px 16px; border: 1.5px solid var(--border);
+    border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    color: var(--text); background: var(--bg); transition: border-color 0.2s;
+    outline: none;
+  }
+  .input:focus, .textarea:focus, .select:focus { border-color: var(--accent); }
+  .textarea { resize: vertical; min-height: 80px; }
+  .select { cursor: pointer; }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 24px; border-radius: 40px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+    cursor: pointer; border: none; transition: all 0.2s; text-decoration: none;
+  }
+  .btn-primary { background: var(--accent); color: white; box-shadow: 0 4px 16px rgba(181,131,141,0.35); }
+  .btn-primary:hover { background: #a0707a; box-shadow: 0 6px 20px rgba(181,131,141,0.45); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+  .btn-outline:hover { background: var(--accent-light); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+  .btn-full { width: 100%; }
+
+  /* DAY SELECTOR */
+  .day-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; margin-bottom: 16px; }
+  .day-btn {
+    aspect-ratio: 1; border-radius: 10px; border: 1.5px solid var(--border);
+    background: var(--bg); color: var(--text-muted); font-size: 0.7rem; font-weight: 600;
+    cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+  }
+  .day-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .day-btn.selected { background: var(--accent); border-color: var(--accent); color: white; }
+  .day-btn.special { border-color: var(--gold); color: var(--gold); }
+  .day-btn.special.selected { background: var(--gold); border-color: var(--gold); color: white; }
+
+  /* RESPONSE AREA */
+  .response-wrap {
+    background: linear-gradient(135deg, #fff 0%, var(--bg) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-top: 16px;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+  /* MARKDOWN */
+  .md h1, .md h2, .md h3 { font-family: 'Playfair Display', serif; color: var(--accent); margin: 1.2rem 0 0.5rem; font-weight: 700; }
+  .md h1 { font-size: 1.4rem; } .md h2 { font-size: 1.2rem; } .md h3 { font-size: 1rem; }
+  .md p { line-height: 1.7; margin-bottom: 0.8rem; font-size: 0.9rem; }
+  .md strong { color: var(--accent); font-weight: 600; }
+  .md ul, .md ol { padding-left: 1.4rem; margin-bottom: 0.8rem; }
+  .md li { line-height: 1.6; margin-bottom: 4px; font-size: 0.9rem; }
+  .md hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+  /* LOADER */
+  .loader { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 32px; color: var(--text-muted); font-size: 0.85rem; }
+  .spin { width: 20px; height: 20px; border: 2px solid var(--accent-mid); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* TABS CONTENT */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* TRACK BUTTONS */
+  .track-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .track-btn {
+    padding: 14px 10px; border-radius: 14px; border: 1.5px solid var(--border);
+    background: var(--bg); cursor: pointer; transition: all 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .track-btn.done { background: var(--accent-light); border-color: var(--accent); }
+  .track-btn svg { width: 22px; height: 22px; color: var(--text-muted); }
+  .track-btn.done svg { color: var(--accent); }
+  .track-btn span { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+  .track-btn.done span { color: var(--accent); }
+
+  /* CHAT */
+  .chat-window {
+    position: fixed; bottom: 0; right: 0; z-index: 200;
+    width: 100%; max-height: 90vh;
+    background: var(--surface);
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.12);
+    display: flex; flex-direction: column;
+    border-radius: 24px 24px 0 0;
+    overflow: hidden;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .chat-window.open { transform: translateY(0); }
+  @media (min-width: 600px) {
+    .chat-window { width: 380px; right: 24px; bottom: 24px; border-radius: 24px; max-height: 600px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+  }
+  .chat-header { background: var(--accent); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .chat-header-info { display: flex; align-items: center; gap: 12px; }
+  .chat-avatar { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .chat-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: white; font-style: italic; }
+  .chat-status { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 5px; }
+  .online-dot { width: 6px; height: 6px; background: #7EE8A2; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+  .chat-close { background: none; border: none; cursor: pointer; color: white; opacity: 0.8; padding: 4px; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #FAFAFA; }
+  .msg { max-width: 85%; padding: 12px 14px; border-radius: 16px; font-size: 0.85rem; line-height: 1.6; animation: fadeIn 0.3s ease; }
+  .msg.bot { background: white; border: 1px solid var(--border); border-radius: 4px 16px 16px 16px; align-self: flex-start; }
+  .msg.user { background: var(--accent); color: white; border-radius: 16px 4px 16px 16px; align-self: flex-end; }
+  .msg.bot .md strong { color: var(--accent); }
+  .chat-quick { display: flex; gap: 8px; padding: 10px 16px; overflow-x: auto; background: white; border-top: 1px solid var(--border); }
+  .quick-btn { white-space: nowrap; background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); border-radius: 20px; padding: 6px 14px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+  .quick-btn:hover { background: var(--accent-mid); }
+  .chat-input-wrap { display: flex; gap: 10px; padding: 12px 16px; background: white; border-top: 1px solid var(--border); }
+  .chat-input { flex: 1; border: 1.5px solid var(--border); border-radius: 24px; padding: 10px 16px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
+  .chat-input:focus { border-color: var(--accent); }
+  .chat-send { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+  .chat-send:hover { background: #a0707a; transform: scale(1.05); }
+  .chat-send:disabled { opacity: 0.4; transform: none; }
+
+  /* FAB */
+  .fab {
+    position: fixed; bottom: 88px; right: 16px; z-index: 150;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--accent); border: none; color: white;
+    box-shadow: 0 6px 20px rgba(181,131,141,0.5);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+  }
+  .fab:hover { transform: scale(1.08); }
+  .fab-badge { position: absolute; top: -2px; right: -2px; width: 16px; height: 16px; background: #E05C5C; border-radius: 50%; border: 2px solid white; animation: bounce 2s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-3px);} }
+  @media(min-width:600px){.fab{bottom:24px;right:24px;}}
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    display: flex; padding: 10px 0 20px;
+  }
+  .nav-btn {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+    color: var(--text-muted); transition: color 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-btn.active { color: var(--accent); }
+  .nav-btn svg { width: 22px; height: 22px; }
+  .nav-btn span { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+
+  /* BADGE CHIPS */
+  .chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; }
+  .chip-rose { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+  .chip-gold { background: rgba(201,168,108,0.12); color: var(--gold); border: 1px solid rgba(201,168,108,0.3); }
+
+  /* PROGRESS BAR */
+  .prog-bar-wrap { background: var(--bg); border-radius: 99px; overflow: hidden; height: 8px; }
+  .prog-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--gold)); border-radius: 99px; transition: width 0.5s ease; }
+
+  /* SECTION HEADER */
+  .section-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 12px; }
+
+  /* NEWS */
+  .news-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+  .news-cat { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 6px; }
+  .news-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .news-summary { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ERROR */
+  .error-box { background: #FFF0F0; border: 1px solid #FFCDD2; border-radius: 12px; padding: 14px 16px; font-size: 0.85rem; color: #C62828; }
+
+  /* HERO */
+  .hero { text-align: center; padding: 32px 20px 24px; }
+  .hero-butterfly { color: var(--accent); margin-bottom: 12px; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--text); font-style: italic; margin-bottom: 6px; }
+  .hero-sub { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); }
+
+  /* STAT ROW */
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--accent); }
+  .stat-lbl { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 2px; }
+
+  /* RECIPE TABS */
+  .recipe-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .recipe-tab { padding: 8px 18px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border: 1.5px solid var(--border); background: var(--bg); color: var(--text-muted); transition: all 0.2s; }
+  .recipe-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+  /* PROGRESS LOG */
+  .progress-day { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--bg); border-radius: 12px; margin-bottom: 8px; font-size: 0.83rem; }
+  .progress-icons { display: flex; gap: 6px; }
+  .progress-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+  .progress-icon.done { background: var(--accent-light); color: var(--accent); }
+  .progress-icon.miss { background: #F5F5F5; color: #CCC; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+  /* CUSTOM PLAN FORM */
+  .plan-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:480px){ .plan-row { grid-template-columns: 1fr; } }
+
+  /* NOTIFICATION */
+  .notif {
+    position: fixed; bottom: 90px; right: 16px; z-index: 160;
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 14px 16px; max-width: 280px; box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    animation: slideIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    border-left: 3px solid var(--accent);
+  }
+  @keyframes slideIn { from{opacity:0;transform:translateX(60px);} to{opacity:1;transform:translateX(0);} }
+  .notif-title { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 4px; }
+  .notif-msg { font-size: 0.8rem; color: var(--text); line-height: 1.5; margin-bottom: 8px; }
+  .notif-close { position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 1rem; line-height: 1; }
+
+  /* TYPING */
+  .typing-dots { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
+  .typing-dots span { width: 7px; height: 7px; background: var(--accent-mid); border-radius: 50%; animation: dot 1.2s infinite; }
+  .typing-dots span:nth-child(2){animation-delay:0.2s;} .typing-dots span:nth-child(3){animation-delay:0.4s;}
+  @keyframes dot { 0%,80%,100%{transform:scale(0.7);opacity:0.4;} 40%{transform:scale(1);opacity:1;} }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar{width:4px;height:4px;} ::-webkit-scrollbar-track{background:transparent;} ::-webkit-scrollbar-thumb{background:var(--accent-mid);border-radius:4px;}
+
+  /* SHARE BTN */
+  .share-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+
+  /* COUPON */
+  .coupon { border: 2px dashed var(--accent-mid); border-radius: 14px; padding: 16px; margin-bottom: 10px; display: flex; gap: 14px; align-items: center; }
+  .coupon-code { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--accent); font-weight: 700; letter-spacing: 0.05em; }
+  .coupon-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- API KEY SCREEN -->
+<div id="apiKeyScreen" style="display:none;position:fixed;inset:0;z-index:999;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;padding:32px;">
+  <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#B5838D" stroke-width="1.5" style="margin-bottom:16px"><path d="M12 19V5"/><path d="M12 5c-2.5-3-9-2.5-9 3.5 0 2.5 2 4.5 4.5 5.5-2.5 1-4.5 3-4.5 5.5 0 6 6.5 6.5 9 3.5"/><path d="M12 5c2.5-3 9-2.5 9 3.5 0 2.5-2 4.5-4.5 5.5 2.5 1 4.5 3 4.5 5.5 0 6-6.5 6.5-9 3.5"/></svg>
+  <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#B5838D;font-style:italic;margin-bottom:6px;">Balance 45</div>
+  <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#9A8F8F;margin-bottom:28px;">Be U Beauty Budapest</div>
+  <div style="background:white;border:1px solid rgba(181,131,141,0.18);border-radius:20px;padding:28px;max-width:380px;width:100%;">
+    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9A8F8F;margin-bottom:8px;">Gemini API kulcs</div>
+    <p style="font-size:0.83rem;color:#9A8F8F;margin-bottom:16px;line-height:1.6;">Az app indításához add meg a Gemini API kulcsodat. Ez csak a te böngésződben tárolódik.</p>
+    <input type="password" id="apiKeyInput" placeholder="AIzaSy..." style="width:100%;padding:12px 16px;border:1.5px solid rgba(181,131,141,0.3);border-radius:12px;font-size:0.9rem;outline:none;margin-bottom:12px;font-family:'DM Sans',sans-serif;">
+    <button onclick="saveApiKey()" style="width:100%;padding:13px;background:#B5838D;color:white;border:none;border-radius:40px;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;">Belépés 🦋</button>
+    <p style="font-size:0.72rem;color:#9A8F8F;margin-top:14px;text-align:center;">Kulcsot itt kaphatsz: <a href="https://aistudio.google.com/apikey" target="_blank" style="color:#B5838D;">aistudio.google.com/apikey</a></p>
+  </div>
+</div>
+
+<div id="appContent">
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5"/>
+      <path d="M12 5c-2.5-3-9-2.5-9 3.5 0 2.5 2 4.5 4.5 5.5-2.5 1-4.5 3-4.5 5.5 0 6 6.5 6.5 9 3.5"/>
+      <path d="M12 5c2.5-3 9-2.5 9 3.5 0 2.5-2 4.5-4.5 5.5 2.5 1 4.5 3 4.5 5.5 0 6-6.5 6.5-9 3.5"/>
+    </svg>
+    <div>
+      <div class="logo-text">Balance 45</div>
+      <div class="logo-sub">Be U Beauty Budapest</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <div id="streakChip" class="chip chip-rose" style="display:none">🔥 <span id="streakNum">0</span> napos sorozat</div>
+    <button onclick="resetApiKey()" title="API kulcs csere" style="background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:1rem;padding:4px;">🔑</button>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('daily')">✨ Napi</button>
+    <button class="tab-btn" onclick="switchTab('custom')">🎯 Személyre szabott</button>
+    <button class="tab-btn" onclick="switchTab('recipes')">🥗 Receptek</button>
+    <button class="tab-btn" onclick="switchTab('progress')">📊 Haladás</button>
+    <button class="tab-btn" onclick="switchTab('news')">📰 Hírek</button>
+    <button class="tab-btn" onclick="switchTab('loyalty')">🎁 Hűség</button>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- ===== NAPI TAB ===== -->
+  <div id="tab-daily" class="tab-content active">
+    <div class="hero">
+      <div class="hero-butterfly">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5"/>
+          <path d="M12 5c-2.5-3-9-2.5-9 3.5 0 2.5 2 4.5 4.5 5.5-2.5 1-4.5 3-4.5 5.5 0 6 6.5 6.5 9 3.5"/>
+          <path d="M12 5c2.5-3 9-2.5 9 3.5 0 2.5-2 4.5-4.5 5.5 2.5 1 4.5 3 4.5 5.5 0 6-6.5 6.5-9 3.5"/>
+        </svg>
+      </div>
+      <div class="hero-title">A Te 45 Napod</div>
+      <div class="hero-sub">Minden lépés számít · Fibonacci-hatás</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Hányadik napodon jársz?
+      </div>
+      <div class="section-label">Kattints a napra (⭐ = különleges mérföldkő)</div>
+      <div class="day-grid" id="dayGrid"></div>
+      <button class="btn btn-primary btn-full" id="generateBtn" onclick="generateDaily()" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+        Napi tartalom generálása
+      </button>
+    </div>
+
+    <div id="dailyResult"></div>
+
+    <!-- Today tracking -->
+    <div class="card" id="trackCard" style="display:none">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Mai haladás
+      </div>
+      <div class="track-grid">
+        <button class="track-btn" id="track-task" onclick="toggleTrack('task')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+          <span>Küldetés</span>
+        </button>
+        <button class="track-btn" id="track-fuel" onclick="toggleTrack('fuel')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2l3 6 4-3 4 3 3-6"/><rect x="2" y="8" width="20" height="12" rx="2"/></svg>
+          <span>Üzemanyag</span>
+        </button>
+        <button class="track-btn" id="track-selfcare" onclick="toggleTrack('selfcare')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span>Self-care</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SZEMÉLYRE SZABOTT TAB ===== -->
+  <div id="tab-custom" class="tab-content">
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+        Személyre szabott nap
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">Mesélj magadról és készítünk egy teljesen egyedi Balance 45 napot! 🌸</p>
+      <div class="input-group">
+        <label class="input-label">Céljaid</label>
+        <textarea class="textarea" id="goalInput" placeholder="pl. fogyni szeretnék, jobban érzem magam, feszesebbnek akarom a testem..."></textarea>
+      </div>
+      <div class="plan-row">
+        <div class="input-group">
+          <label class="input-label">Preferenciák</label>
+          <textarea class="textarea" id="prefInput" style="min-height:60px" placeholder="pl. reggeli mozgás, vega étrend, rövid edzések..."></textarea>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Korlátok</label>
+          <textarea class="textarea" id="limitInput" style="min-height:60px" placeholder="pl. térdfájdalom, kevés idő, allergiák..."></textarea>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="generateCustom()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Egyedi nap generálása
+      </button>
+    </div>
+    <div id="customResult"></div>
+  </div>
+
+  <!-- ===== RECEPTEK TAB ===== -->
+  <div id="tab-recipes" class="tab-content">
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2l3 6 4-3 4 3 3-6"/><rect x="2" y="8" width="20" height="12" rx="2"/></svg>
+        Recept & Táplálkozás
+      </div>
+      <div class="recipe-tabs">
+        <button class="recipe-tab active" id="rtab-ing" onclick="switchRecipeTab('ingredients')">Alapanyagból</button>
+        <button class="recipe-tab" id="rtab-search" onclick="switchRecipeTab('search')">Keresés</button>
+      </div>
+      <div id="recipe-ingredients">
+        <div class="input-group">
+          <label class="input-label">Milyen alapanyagaid vannak otthon?</label>
+          <textarea class="textarea" id="ingredientsInput" placeholder="pl. csirke, brokkoli, rizs, fokhagyma, citrom..."></textarea>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="generateRecipe('ingredients')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+          Mit főzzek belőle?
+        </button>
+      </div>
+      <div id="recipe-search" style="display:none">
+        <div class="input-group">
+          <label class="input-label">Kérdés vagy recept neve</label>
+          <input type="text" class="input" id="recipeSearchInput" placeholder="pl. fehérje szelet, vegán reggeli, mennyit számít 1 pizza...">
+        </div>
+        <button class="btn btn-primary btn-full" onclick="generateRecipe('search')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Keresés
+        </button>
+      </div>
+    </div>
+    <div id="recipeResult"></div>
+  </div>
+
+  <!-- ===== HALADÁS TAB ===== -->
+  <div id="tab-progress" class="tab-content">
+    <div id="progressStats"></div>
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Haladási napló
+      </div>
+      <div id="progressLog" style="max-height:320px;overflow-y:auto;"></div>
+      <button class="btn btn-outline btn-full" style="margin-top:12px" onclick="getMentorTips()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Mentor üzenetet kérek
+      </button>
+      <div id="tipsResult"></div>
+    </div>
+  </div>
+
+  <!-- ===== HÍREK TAB ===== -->
+  <div id="tab-news" class="tab-content">
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+        Wellness hírek
+      </div>
+      <button class="btn btn-primary btn-full" onclick="loadNews()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Friss hírek betöltése
+      </button>
+    </div>
+    <div id="newsResult"></div>
+  </div>
+
+  <!-- ===== HŰSÉG TAB ===== -->
+  <div id="tab-loyalty" class="tab-content">
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Be U Hűségprogram
+      </div>
+      <div id="loyaltyContent"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        Különleges ajánlatok
+      </div>
+      <div id="couponsContent"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Barátnő meghívó
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:14px;">Hívj meg egy barátnőt és <strong>mindketten</strong> kaptok kedvezményt! 🎉</p>
+      <div style="background:var(--bg);border-radius:12px;padding:14px;text-align:center;margin-bottom:12px;">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:4px;">A Te meghívó kódod</div>
+        <div id="referralCode" style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--accent);letter-spacing:0.1em;font-weight:700;"></div>
+      </div>
+      <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.6;">
+        🎁 <strong>Bérletvásárlásnál:</strong> 5.000 Ft kupon mindkettőtöknek<br>
+        🎁 <strong>Egyedi kezelésnél:</strong> 2.000 Ft kupon mindkettőtöknek
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- CHAT FAB -->
+<button class="fab" onclick="toggleChat()" id="chatFab">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <div class="fab-badge"></div>
+</button>
+
+<!-- CHAT WINDOW -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 19V5"/><path d="M12 5c-2.5-3-9-2.5-9 3.5 0 2.5 2 4.5 4.5 5.5-2.5 1-4.5 3-4.5 5.5 0 6 6.5 6.5 9 3.5"/><path d="M12 5c2.5-3 9-2.5 9 3.5 0 2.5-2 4.5-4.5 5.5 2.5 1 4.5 3 4.5 5.5 0 6-6.5 6.5-9 3.5"/></svg>
+      </div>
+      <div>
+        <div class="chat-name">Be U Tanácsadó</div>
+        <div class="chat-status"><div class="online-dot"></div> Online · Melinda csapata</div>
+      </div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-quick">
+    <button class="quick-btn" onclick="quickMsg('Ingyenes konzultációt szeretnék!')">Ingyenes konzultáció</button>
+    <button class="quick-btn" onclick="quickMsg('Mesélj a géppróbáról!')">7500 Ft Géppróba</button>
+    <button class="quick-btn" onclick="quickMsg('Hogyan működik a Balance 45?')">Balance 45 info</button>
+  </div>
+  <div class="chat-input-wrap">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Írj nekünk..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" id="chatSendBtn" onclick="sendChat()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" id="nav-daily" onclick="switchTab('daily')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="M12 5c-2.5-3-9-2.5-9 3.5 0 2.5 2 4.5 4.5 5.5-2.5 1-4.5 3-4.5 5.5 0 6 6.5 6.5 9 3.5"/><path d="M12 5c2.5-3 9-2.5 9 3.5 0 2.5-2 4.5-4.5 5.5 2.5 1 4.5 3 4.5 5.5 0 6-6.5 6.5-9 3.5"/></svg>
+    <span>Napi</span>
+  </button>
+  <button class="nav-btn" id="nav-recipes" onclick="switchTab('recipes')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2l3 6 4-3 4 3 3-6"/><rect x="2" y="8" width="20" height="12" rx="2"/></svg>
+    <span>Étel</span>
+  </button>
+  <button class="nav-btn" id="nav-progress" onclick="switchTab('progress')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <span>Napló</span>
+  </button>
+  <button class="nav-btn" id="nav-loyalty" onclick="switchTab('loyalty')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <span>Hűség</span>
+  </button>
+</nav>
+
+<!-- NOTIFICATION -->
+<div id="notif" style="display:none" class="notif">
+  <button class="notif-close" onclick="document.getElementById('notif').style.display='none'">×</button>
+  <div class="notif-title" id="notifTitle"></div>
+  <div class="notif-msg" id="notifMsg"></div>
+  <button class="quick-btn" onclick="toggleChat();document.getElementById('notif').style.display='none';" style="font-size:0.65rem;padding:5px 12px;">Érdekel →</button>
+</div>
+
+<script>
+// ========== STATE ==========
+const SPECIAL_DAYS = [13, 21, 34, 45];
+let selectedDay = null;
+let progressData = JSON.parse(localStorage.getItem('b45_progress') || '{}');
+let loyaltyPoints = parseInt(localStorage.getItem('b45_points') || '0');
+let chatHistory = [];
+let chatOpen = false;
+let referralCode = localStorage.getItem('b45_ref') || Math.random().toString(36).substring(2,8).toUpperCase();
+localStorage.setItem('b45_ref', referralCode);
+let GEMINI_API_KEY = localStorage.getItem('b45_apikey') || '';
+
+// ========== API KEY SETUP ==========
+function checkApiKey() {
+  if (!GEMINI_API_KEY) {
+    document.getElementById('apiKeyScreen').style.display = 'flex';
+    document.getElementById('appContent').style.display = 'none';
+  } else {
+    document.getElementById('apiKeyScreen').style.display = 'none';
+    document.getElementById('appContent').style.display = 'block';
+  }
+}
+
+function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key.startsWith('AIza')) { 
+    alert('Érvénytelen kulcs! A Gemini API kulcs "AIza"-val kezdődik.'); 
+    return; 
+  }
+  GEMINI_API_KEY = key;
+  localStorage.setItem('b45_apikey', key);
+  checkApiKey();
+}
+
+function resetApiKey() {
+  if (confirm('Biztosan törlöd az API kulcsot?')) {
+    localStorage.removeItem('b45_apikey');
+    GEMINI_API_KEY = '';
+    checkApiKey();
+  }
+}
+
+// ========== INIT ==========
+document.addEventListener('DOMContentLoaded', () => {
+  checkApiKey();
+  buildDayGrid();
+  renderProgress();
+  renderLoyalty();
+  initChat();
+  updateStreak();
+  
+  // Show notification after 15s
+  setTimeout(() => {
+    const notifs = [
+      { title: '✨ SZEMÉLYES SEGÍTSÉG', msg: 'Szeretnél beszélni Melindával a céljaidról? Foglalj ingyenes konzultációt!' },
+      { title: '🌸 KEDVES FIGYELMEZTETÉS', msg: 'Fogynak a helyek ezen a héten – érdemes időben foglalni!' },
+      { title: '💆‍♀️ KÉNYEZTETÉS', msg: 'Fedezd fel a hibrid technológiát egy kedvezményes 7500 Ft-os géppróba keretében!' }
+    ];
+    const n = notifs[Math.floor(Math.random()*notifs.length)];
+    document.getElementById('notifTitle').textContent = n.title;
+    document.getElementById('notifMsg').textContent = n.msg;
+    document.getElementById('notif').style.display = 'block';
+    setTimeout(() => { document.getElementById('notif').style.display = 'none'; }, 8000);
+  }, 15000);
+});
+
+// ========== TABS ==========
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelector(`.tab-btn[onclick="switchTab('${tab}')"]`)?.classList.add('active');
+  document.getElementById('nav-' + tab)?.classList.add('active');
+  if (tab === 'progress') renderProgress();
+  if (tab === 'loyalty') renderLoyalty();
+}
+
+// ========== DAY GRID ==========
+function buildDayGrid() {
+  const grid = document.getElementById('dayGrid');
+  for (let i = 1; i <= 45; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'day-btn' + (SPECIAL_DAYS.includes(i) ? ' special' : '');
+    btn.textContent = SPECIAL_DAYS.includes(i) ? '⭐' + i : i;
+    btn.style.fontSize = SPECIAL_DAYS.includes(i) ? '0.6rem' : '0.72rem';
+    btn.onclick = () => selectDay(i, btn);
+    grid.appendChild(btn);
+  }
+}
+function selectDay(day, btn) {
+  selectedDay = day;
+  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('generateBtn').disabled = false;
+}
+
+// ========== API CALL (Gemini) ==========
+async function callClaude(systemPrompt, userMsg) {
+  const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      contents: [{ role: 'user', parts: [{ text: userMsg }] }],
+      generationConfig: { temperature: 0.8, maxOutputTokens: 1000 }
+    })
+  });
+  const data = await resp.json();
+  if (data.error) throw new Error(data.error.message);
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
+async function callClaudeChat(systemPrompt, history) {
+  const contents = history.map(m => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }]
+  }));
+  const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      contents,
+      generationConfig: { temperature: 0.8, maxOutputTokens: 800 }
+    })
+  });
+  const data = await resp.json();
+  if (data.error) throw new Error(data.error.message);
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
+// ========== DAILY CONTENT ==========
+const MENTOR_SYSTEM = `
+Te vagy a Be U Beauty Budapest kedves és támogató mentora, a „Balance 45" program arca.
+A logód egy pillangó, ami a metamorfózist és a „Pillangó-hatást" szimbolizálja.
+Filosófiád alapja a Fibonacci-sorozat: minden apró tett összeadódik, és a végén egy hatalmas változást eredményez.
+Stílusod barátságos, bátorító, szakértői és eredményorientált.
+
+Szakmai pillérek (Minden válaszban kötelező):
+1. **✨ Motivációs Szikra**: Rövid, határozott ébresztő.
+2. **🏃‍♀️ 30 Perces Küldetés**: Legyen meglepő, vicces vagy hétköznapi.
+3. **🥗 Üzemanyag**: Gyors, egészséges recept vagy táplálkozási tipp.
+4. **💆‍♀️ Self-care Pillanat**: Esti rituálé, könyvajánló, vagy egy gyertyafényes pillanat.
+
+Extra Karakter-feladat (Sorsolj ki EGYET):
+- A „Díva" feladat: Viccesen luxus öngondoskodás.
+- A „Gerilla" feladat: Váratlan helyszínű mozgás.
+- A „Boss" feladat: Önbizalom és határozottság.
+
+Kiemelt napok (adj hozzá Extra Mentor Ajánlat szekciót):
+- 13. nap: „Félidőhöz közeledünk" – 15% kedvezmény hibrid kezelésre. Megszólítás: „Újonc"
+- 21. nap: „A kitartás ünnepe" – 10.000 Ft értékű kupon bérletvásárlásnál. Megszólítás: „Haladó"
+- 34. nap: „A finisben" – Ajándék 15 perces arcmasszázs. Megszólítás: „Amazon"
+- 45. nap: „A DIADAL NAPJA" – Gratulálj és adj Balance 45 Oklevelet! Megszólítás: „A Megállíthatatlan"
+
+Ajánlj: INGYENES 15 perces konzultációt, és 45 perces géppróbát 7500 Ft-ért.
+Stílus: Közvetlen, barátságos, bátorító. Markdown formázás. Max 300 szó.
+`;
+
+async function generateDaily() {
+  if (!selectedDay) return;
+  const btn = document.getElementById('generateBtn');
+  const resultDiv = document.getElementById('dailyResult');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spin"></div> Generálás...';
+  resultDiv.innerHTML = '<div class="loader"><div class="spin"></div> A mentored üzenetét készítem...</div>';
+  
+  try {
+    const text = await callClaude(MENTOR_SYSTEM, `Generáld le a tartalmat erre a napra: ${selectedDay}. nap`);
+    resultDiv.innerHTML = `
+      <div class="response-wrap">
+        <div class="md">${marked.parse(text)}</div>
+        <hr class="divider">
+        <div class="share-row">
+          <button class="btn btn-outline" onclick="shareContent('${selectedDay}')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Megosztás
+          </button>
+          <span class="chip chip-rose">📅 ${selectedDay}. nap</span>
+        </div>
+      </div>
+    `;
+    // Show tracking card
+    document.getElementById('trackCard').style.display = 'block';
+    loadTrackState();
+    // Add points
+    addPoints(5);
+  } catch(e) {
+    resultDiv.innerHTML = `<div class="error-box">Hiba: ${e.message}</div>`;
+  }
+  
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg> Napi tartalom generálása';
+}
+
+// ========== CUSTOM PLAN ==========
+const CUSTOM_SYSTEM = `
+Te vagy a Be U Beauty Budapest mentora. Készíts egy EGYEDI Balance 45 napot a megadott adatok alapján.
+Tartalmazza: Motivációs Szikra, 30 Perces Küldetés (személyre szabva), Üzemanyag (allergiákra figyelve), Self-care pillanat, Extra feladat.
+Stílus: Barátságos, bátorító. Markdown formázás. Max 250 szó.
+`;
+
+async function generateCustom() {
+  const goals = document.getElementById('goalInput').value;
+  const prefs = document.getElementById('prefInput').value;
+  const limits = document.getElementById('limitInput').value;
+  if (!goals.trim()) { alert('Írj be legalább egy célt!'); return; }
+  
+  const resultDiv = document.getElementById('customResult');
+  resultDiv.innerHTML = '<div class="loader"><div class="spin"></div> Egyedi terv készítése...</div>';
+  
+  try {
+    const text = await callClaude(CUSTOM_SYSTEM, 
+      `Célok: ${goals}\nPreferenciák: ${prefs || 'nincs megadva'}\nKorlátok: ${limits || 'nincs megadva'}\nGenerálj személyre szabott Balance 45 napot!`);
+    resultDiv.innerHTML = `<div class="response-wrap"><div class="md">${marked.parse(text)}</div></div>`;
+  } catch(e) {
+    resultDiv.innerHTML = `<div class="error-box">Hiba: ${e.message}</div>`;
+  }
+}
+
+// ========== RECIPES ==========
+function switchRecipeTab(tab) {
+  document.getElementById('recipe-ingredients').style.display = tab === 'ingredients' ? 'block' : 'none';
+  document.getElementById('recipe-search').style.display = tab === 'search' ? 'block' : 'none';
+  document.getElementById('rtab-ing').classList.toggle('active', tab === 'ingredients');
+  document.getElementById('rtab-search').classList.toggle('active', tab === 'search');
+}
+
+const RECIPE_SYSTEM = `
+Te vagy a Be U Beauty Budapest recept- és táplálkozási szakértője.
+Irányelvek: Vega/vegán opciókat részesíts előnyben, sok zöldség, "Okos Tányér" elv (fehérje + rost + lassú szénhidrát).
+Adj pontos, egészséges receptet ami illeszkedik a Balance 45 szellemiségéhez. Jelöld ha vega/vegán/GM.
+Tartalmazza: étel neve, elkészítési idő, becsült kalória, lépések.
+Stílus: Barátságos, precíz. Markdown formázás. Max 300 szó.
+`;
+
+async function generateRecipe(type) {
+  const query = type === 'ingredients' 
+    ? document.getElementById('ingredientsInput').value
+    : document.getElementById('recipeSearchInput').value;
+  if (!query.trim()) { alert('Írj be valamit!'); return; }
+  
+  const resultDiv = document.getElementById('recipeResult');
+  resultDiv.innerHTML = '<div class="loader"><div class="spin"></div> Recept keresése...</div>';
+  
+  const msg = type === 'ingredients' 
+    ? `Ezek az alapanyagaim vannak otthon: ${query}. Mit készítsek?`
+    : `Kérdés/Keresés: ${query}`;
+  
+  try {
+    const text = await callClaude(RECIPE_SYSTEM, msg);
+    resultDiv.innerHTML = `<div class="response-wrap"><div class="md">${marked.parse(text)}</div></div>`;
+  } catch(e) {
+    resultDiv.innerHTML = `<div class="error-box">Hiba: ${e.message}</div>`;
+  }
+}
+
+// ========== PROGRESS ==========
+function toggleTrack(key) {
+  const today = new Date().toISOString().split('T')[0];
+  if (!progressData[today]) progressData[today] = {};
+  progressData[today][key] = !progressData[today][key];
+  localStorage.setItem('b45_progress', JSON.stringify(progressData));
+  loadTrackState();
+  updateStreak();
+  if (progressData[today][key]) addPoints(10);
+}
+
+function loadTrackState() {
+  const today = new Date().toISOString().split('T')[0];
+  const d = progressData[today] || {};
+  ['task','fuel','selfcare'].forEach(k => {
+    const btn = document.getElementById('track-' + k);
+    if (btn) btn.classList.toggle('done', !!d[k]);
+  });
+}
+
+function renderProgress() {
+  const entries = Object.entries(progressData).sort((a,b) => b[0].localeCompare(a[0]));
+  const total = entries.length;
+  const completed = entries.filter(([,v]) => v.task && v.fuel && v.selfcare).length;
+  
+  const statsHtml = `
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">${total}</div><div class="stat-lbl">Aktív nap</div></div>
+      <div class="stat-box"><div class="stat-num">${completed}</div><div class="stat-lbl">Teljes nap</div></div>
+      <div class="stat-box"><div class="stat-num">${loyaltyPoints}</div><div class="stat-lbl">Pontok</div></div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:6px;">Program haladás (${total}/45)</div>
+      <div class="prog-bar-wrap"><div class="prog-bar" style="width:${Math.min(100, (total/45)*100)}%"></div></div>
+    </div>
+  `;
+  document.getElementById('progressStats').innerHTML = statsHtml;
+  
+  if (!entries.length) {
+    document.getElementById('progressLog').innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:20px;">Még nincs bejegyzés – kezdj el nyomon követni a napi céljaid! 🌸</p>';
+    return;
+  }
+  
+  const logHtml = entries.slice(0, 14).map(([date, data]) => {
+    const d = new Date(date);
+    const label = d.toLocaleDateString('hu-HU', { month: 'short', day: 'numeric' });
+    return `
+      <div class="progress-day">
+        <span style="font-size:0.78rem;color:var(--text-muted);min-width:48px;">${label}</span>
+        <div class="progress-icons">
+          <div class="progress-icon ${data.task ? 'done' : 'miss'}">🏃</div>
+          <div class="progress-icon ${data.fuel ? 'done' : 'miss'}">🥗</div>
+          <div class="progress-icon ${data.selfcare ? 'done' : 'miss'}">💆</div>
+        </div>
+        <span style="font-size:0.75rem;color:var(--text-muted)">${[data.task,data.fuel,data.selfcare].filter(Boolean).length}/3 kész</span>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('progressLog').innerHTML = logHtml;
+}
+
+async function getMentorTips() {
+  const resultDiv = document.getElementById('tipsResult');
+  resultDiv.innerHTML = '<div class="loader"><div class="spin"></div> Mentor üzenet érkezik...</div>';
+  
+  const entries = Object.entries(progressData).sort((a,b) => b[0].localeCompare(a[0])).slice(0, 7);
+  const TIPS_SYSTEM = `
+  Te vagy a Be U Beauty Budapest mentora. Elemezd a haladást és adj 3 kedves, bátorító tippet.
+  Dicsérd meg az erőfeszítéseket. Finoman utalj a Be U Beauty szalonra.
+  Stílus: Empatikus, bátorító. Markdown. Max 150 szó.
+  `;
+  
+  try {
+    const text = await callClaude(TIPS_SYSTEM, `Haladási napló: ${JSON.stringify(entries)}`);
+    resultDiv.innerHTML = `<div class="response-wrap" style="margin-top:12px;"><div class="md">${marked.parse(text)}</div></div>`;
+  } catch(e) {
+    resultDiv.innerHTML = `<div class="error-box">Hiba: ${e.message}</div>`;
+  }
+}
+
+// ========== NEWS ==========
+const NEWS_SYSTEM = `
+Te vagy a Be U Beauty Budapest profi mentora.
+Generálj 4 hírt/sztorit a wellness és szépségápolás világából JSON formátumban.
+Témák: 1. Zsírégetés otthon vs gépi kezelés, 2. Sikerstory egy hétköznapi nőtől, 3. Önbizalom pszichológia, 4. Narancsbőr titkok.
+Stílus: Barátságos, inspiráló, "pletykásan" őszinte, szakmailag erős. Sales pszichológia.
+Válaszolj CSAK valid JSON-nal, semmi más szöveg:
+{"news": [{"title": "...", "summary": "...", "category": "..."}], "didYouKnow": "..."}
+`;
+
+async function loadNews() {
+  const resultDiv = document.getElementById('newsResult');
+  resultDiv.innerHTML = '<div class="loader"><div class="spin"></div> Hírek betöltése...</div>';
+  
+  try {
+    const text = await callClaude(NEWS_SYSTEM, 'Adj 4 friss wellness és alakformáló hírt és egy Tudtad-e tényt.');
+    const clean = text.replace(/```json|```/g, '').trim();
+    const data = JSON.parse(clean);
+    
+    let html = '';
+    if (data.didYouKnow) {
+      html += `<div class="card" style="background:linear-gradient(135deg,#fff,var(--bg))">
+        <div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:8px;">💡 Tudtad-e?</div>
+        <p style="font-size:0.9rem;line-height:1.6;">${data.didYouKnow}</p>
+      </div>`;
+    }
+    (data.news || []).forEach(n => {
+      html += `<div class="news-card">
+        <div class="news-cat">${n.category}</div>
+        <div class="news-title">${n.title}</div>
+        <div class="news-summary">${n.summary}</div>
+      </div>`;
+    });
+    resultDiv.innerHTML = html || '<div class="error-box">Nem sikerült betölteni a híreket.</div>';
+  } catch(e) {
+    resultDiv.innerHTML = `<div class="error-box">Hiba: ${e.message}</div>`;
+  }
+}
+
+// ========== LOYALTY ==========
+function addPoints(pts) {
+  loyaltyPoints += pts;
+  localStorage.setItem('b45_points', loyaltyPoints);
+  renderLoyalty();
+  updateStreak();
+}
+
+function renderLoyalty() {
+  const level = loyaltyPoints < 100 ? 'Kezdő 🌱' : loyaltyPoints < 300 ? 'Haladó 🌸' : loyaltyPoints < 600 ? 'Expert 💫' : 'Legenda 👑';
+  const nextLevel = loyaltyPoints < 100 ? 100 : loyaltyPoints < 300 ? 300 : loyaltyPoints < 600 ? 600 : 999;
+  const prog = Math.min(100, (loyaltyPoints / nextLevel) * 100);
+  
+  document.getElementById('loyaltyContent').innerHTML = `
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--accent);margin-bottom:4px;">${loyaltyPoints}</div>
+      <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">Hűségpont</div>
+    </div>
+    <div style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.75rem;">
+        <span class="chip chip-rose">${level}</span>
+        <span style="color:var(--text-muted)">${loyaltyPoints}/${nextLevel} pont</span>
+      </div>
+      <div class="prog-bar-wrap"><div class="prog-bar" style="width:${prog}%"></div></div>
+    </div>
+    <div style="font-size:0.78rem;color:var(--text-muted);line-height:1.8;">
+      ✅ <strong>Napi generálás:</strong> +5 pont<br>
+      ✅ <strong>Feladat kész:</strong> +10 pont<br>
+      ✅ <strong>Üzemanyag kész:</strong> +10 pont<br>
+      ✅ <strong>Self-care kész:</strong> +10 pont
+    </div>
+  `;
+  
+  const coupons = [];
+  if (loyaltyPoints >= 50) coupons.push({ code: 'BALANCE15', desc: '15% kedvezmény hibrid kezelésre (13. nap jutalom)', expiry: '2025.12.31' });
+  if (loyaltyPoints >= 150) coupons.push({ code: 'BEUFIT10K', desc: '10.000 Ft kupon bérletvásárlásnál (21. nap jutalom)', expiry: '2025.12.31' });
+  if (loyaltyPoints >= 300) coupons.push({ code: 'AMAZON34', desc: 'Ajándék 15 perces arcmasszázs (34. nap jutalom)', expiry: '2025.12.31' });
+  
+  if (coupons.length) {
+    document.getElementById('couponsContent').innerHTML = coupons.map(c => `
+      <div class="coupon">
+        <div>
+          <div class="coupon-code">${c.code}</div>
+          <div class="coupon-desc">${c.desc}<br><span style="font-size:0.7rem;color:var(--text-muted)">Lejárat: ${c.expiry}</span></div>
+        </div>
+      </div>
+    `).join('');
+  } else {
+    document.getElementById('couponsContent').innerHTML = '<p style="font-size:0.83rem;color:var(--text-muted);">Gyűjts pontokat a napi feladatok teljesítésével, és jutalomkuponokat szerezhetsz! 🎁</p>';
+  }
+  
+  document.getElementById('referralCode').textContent = referralCode;
+}
+
+// ========== CHAT ==========
+const SALES_SYSTEM = `
+Te vagy a Be U Beauty Budapest SZEMÉLYES SZÉPSÉGTANÁCSADÓJA.
+Neved: "Be U Tanácsadó". Melinda csapatának tagja.
+
+Célod: Segítségnyújtás, bizalomépítés, edukatív tanácsadás. Soft sell stratégia.
+
+Termékek:
+- Balance 45 Program: 45 napos életmódváltó program
+- Hibrid Gépi Kezelések: Fájdalommentes zsírbontás, bőrfeszesítés
+- Ingyenes 15 perces konzultáció Melindával
+- 45 perces géppróba: 7500 Ft
+
+Stílus: Barátságos, profi, empatikus. Kérdezz vissza. Hangsúlyozd a közösséget. Soha ne légy agresszív. Markdown. Max 150 szó.
+`;
+
+function initChat() {
+  chatHistory = [{ role: 'user', content: 'Szia!' }];
+  addChatMsg('bot', 'Szia! 🌸 Melinda csapatának tanácsadója vagyok. Miben segíthetek? Szívesen mesélek a Balance 45 programról vagy a szalonunkban elérhető kezelésekről!');
+}
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open', chatOpen);
+}
+
+function addChatMsg(role, text) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  if (role === 'bot') {
+    div.innerHTML = `<div class="md">${marked.parse(text)}</div>`;
+  } else {
+    div.textContent = text;
+  }
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function addTyping() {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'msg bot'; div.id = 'typing';
+  div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  document.getElementById('chatSendBtn').disabled = true;
+  
+  addChatMsg('user', text);
+  chatHistory.push({ role: 'user', content: text });
+  addTyping();
+  
+  try {
+    const reply = await callClaudeChat(SALES_SYSTEM, chatHistory);
+    document.getElementById('typing')?.remove();
+    addChatMsg('bot', reply);
+    chatHistory.push({ role: 'assistant', content: reply });
+  } catch(e) {
+    document.getElementById('typing')?.remove();
+    addChatMsg('bot', 'Sajnos most nem tudok válaszolni. Kérlek hívj minket! 📞');
+  }
+  document.getElementById('chatSendBtn').disabled = false;
+}
+
+function quickMsg(msg) {
+  document.getElementById('chatInput').value = msg;
+  sendChat();
+}
+
+// ========== STREAK ==========
+function updateStreak() {
+  const dates = Object.keys(progressData).sort().reverse();
+  if (!dates.length) { document.getElementById('streakChip').style.display = 'none'; return; }
+  
+  let streak = 0;
+  const today = new Date().toISOString().split('T')[0];
+  let check = today;
+  
+  for (let i = 0; i < 50; i++) {
+    if (progressData[check] && (progressData[check].task || progressData[check].fuel || progressData[check].selfcare)) {
+      streak++;
+      const d = new Date(check);
+      d.setDate(d.getDate() - 1);
+      check = d.toISOString().split('T')[0];
+    } else break;
+  }
+  
+  const chip = document.getElementById('streakChip');
+  if (streak > 0) {
+    chip.style.display = 'inline-flex';
+    document.getElementById('streakNum').textContent = streak;
+  } else {
+    chip.style.display = 'none';
+  }
+}
+
+// ========== SHARE ==========
+function shareContent(day) {
+  const text = `🦋 Balance 45 – ${day}. nap ✨\n\nMa is haladok a Be U Beauty Budapest programmal!\n#Balance45 #BeUBeauty #Pillangóhatás`;
+  if (navigator.share) {
+    navigator.share({ title: 'Balance 45', text });
+  } else {
+    navigator.clipboard.writeText(text).then(() => alert('Szöveg másolva! 📋'));
+  }
+}
+</script>
+</div><!-- /appContent -->
+</body>
+</html>
